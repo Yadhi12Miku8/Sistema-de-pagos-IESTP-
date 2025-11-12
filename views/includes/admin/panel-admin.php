@@ -40,7 +40,7 @@
         link.addEventListener("click", async (e) => {
           e.preventDefault();
           const page = link.getAttribute("data-page");
-          const ruta = `admin/${page}.html`; 
+          const ruta = `includes/admin/${page}.html`; 
 
           try {
             const respuesta = await fetch(ruta);
