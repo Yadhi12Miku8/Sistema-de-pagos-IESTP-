@@ -1,55 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Iniciar Sesión</title>
+
+  <!-- Tailwind y Font Awesome -->
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen flex items-center justify-center bg-cover bg-center relative"
-  style="background-image: url(img/img-background.jpeg);">
+  <script src="https://kit.fontawesome.com/a2e0adad1b.js" crossorigin="anonymous"></script>
 
-  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
-
-  <div class="relative z-10 w-full max-w-md px-6 sm:px-8 py-10 bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/30">
-    
-    <h1 class="text-3xl sm:text-4xl font-light text-white text-center mb-8 italic tracking-wide">
-      Iniciar Sesión
-    </h1>
-
-    <form id="loginForm" class="space-y-5">
-    
-      <div>
-        <label for="email" class="block text-white text-center text-lg mb-2 font-light">Usuario</label>
-        <input type="email" id="email" placeholder="Email" required
-          class="w-full px-5 py-3 rounded-full bg-white/80 text-gray-800 focus:bg-white focus:ring-2 focus:ring-gray-300 focus:outline-none placeholder-gray-600 transition duration-200" />
-      </div>
-
-      <div>
-        <label for="password" class="block text-white text-center text-lg mb-2 font-light">Contraseña</label>
-        <input type="password" id="password" placeholder="Password" required
-          class="w-full px-5 py-3 rounded-full bg-white/80 text-gray-800 focus:bg-white focus:ring-2 focus:ring-gray-300 focus:outline-none placeholder-gray-600 transition duration-200" />
-      </div>
-
-      <button type="submit" id="loginBtn"
-        class="w-full mt-6 py-3 rounded-full bg-gray-800/90 text-white font-medium hover:bg-gray-900 hover:shadow-xl transition transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60">
-        Iniciar Sesión
-      </button>
-    </form>
-    <p id="db-status" class="mt-4 text-sm text-white text-center">Comprobando conexión...</p>
-  </div>
-
-  <div id="toast" class="fixed top-6 right-6 px-5 py-3 rounded-lg text-white font-medium shadow-lg opacity-0 transform -translate-y-4 transition-all duration-300 z-50"></div>
+  <!-- Fuente moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* Simple toast styles used by login.js */
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Animaciones */
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-slide {
+      animation: fadeSlide 1s ease-out forwards;
+    }
+
+    /* Fondo de imagen */
+    .background-image {
+      background-image: url('img/img-background.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Canvas partículas */
+    canvas#particles {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Toast */
     #toast { display: none; }
     #toast.show { display: block; opacity: 1; transform: translateY(0); }
     #toast.success { background-color: rgba(16,185,129,0.9); }
     #toast.error { background-color: rgba(239,68,68,0.95); }
   </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center background-image relative overflow-hidden">
+
+  <!-- Canvas partículas -->
+  <canvas id="particles"></canvas>
+
+  <!-- Capa oscura -->
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm z-[2]"></div>
+
+  <!-- ==== Contenedor principal ==== -->
+  <div class="relative z-10 w-full max-w-md px-8 py-10 bg-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/30 transform transition-all duration-500 fade-slide hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+
+    <!-- ==== Logo ==== -->
+    <div class="flex justify-center mb-6">
+      <img src="img/logo (1).png" alt="Logo" class="w-24 h-24 object-contain drop-shadow-lg" />
+    </div>
+
+    <!-- ==== Título ==== -->
+    <h1 class="text-3xl sm:text-4xl font-semibold text-white text-center mb-8 tracking-wide italic">
+      Iniciar Sesión
+    </h1>
+
+    <!-- ==== Formulario ==== -->
+    <form id="loginForm" class="space-y-6 fade-slide" style="animation-delay: 0.3s;">
+      
+      <!-- Usuario -->
+      <div>
+        <label for="email" class="block text-white text-center text-lg mb-2 font-light">Usuario</label>
+        <div class="flex items-center bg-white/20 rounded-full px-4 py-3 backdrop-blur-sm focus-within:ring-2 focus-within:ring-white/40">
+          <i class="fa-solid fa-user text-white/80 mr-3"></i>
+          <input type="email" id="email" placeholder="Email" required
+            class="bg-transparent flex-1 text-white placeholder-white/70 focus:outline-none" />
+        </div>
+      </div>
+
+      <!-- Contraseña -->
+      <div>
+        <label for="password" class="block text-white text-center text-lg mb-2 font-light">Contraseña</label>
+        <div class="flex items-center bg-white/20 rounded-full px-4 py-3 backdrop-blur-sm focus-within:ring-2 focus-within:ring-white/40">
+          <i class="fa-solid fa-lock text-white/80 mr-3"></i>
+          <input type="password" id="password" placeholder="••••••••" required
+            class="bg-transparent flex-1 text-white placeholder-white/70 focus:outline-none" />
+        </div>
+      </div>
+
+      <!-- Olvidé contraseña -->
+      <div class="text-right">
+        <a href="#" class="text-white/80 hover:text-white text-sm transition">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <!-- Botón -->
+      <button type="submit" id="loginBtn"
+        class="w-full mt-6 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-blue-500 text-white font-semibold tracking-wide shadow-lg hover:shadow-indigo-500/40 transition transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60">
+        <i class="fa-solid fa-right-to-bracket mr-2"></i> Iniciar Sesión
+      </button>
+    </form>
+
+    <!-- Estado DB -->
+    <p id="db-status" class="mt-4 text-sm text-white text-center">Comprobando conexión...</p>
+  </div>
+
+  <!-- ==== Toast ==== -->
+  <div id="toast" class="fixed top-6 right-6 px-5 py-3 rounded-lg text-white font-medium shadow-lg opacity-0 transform -translate-y-4 transition-all duration-300 z-50"></div>
+
+  <!-- ==== Script Partículas Mejoradas ==== -->
+  <script>
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    let particlesArray;
+    const numParticles = 80;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 4 + 1.5;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.alpha = Math.random() * 0.7 + 0.3;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        const glow = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 3);
+        glow.addColorStop(0, `rgba(255,255,255,${this.alpha})`);
+        glow.addColorStop(1, "transparent");
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      particlesArray = [];
+      for (let i = 0; i < numParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+  </script>
 
   <script src="js/login.js"></script>
-
 </body>
 </html>
