@@ -40,7 +40,33 @@ class ModelLogin {
 			}
 
 			// Verificar la contraseña (se asume que en la BD está el hash con password_hash)
-			if (!password_verify($contrasena, $row['contrasena_hash'])) {
+			$storedHash = $row['contrasena_hash'] ?? '';
+			$passwordOk = false;
+
+			// 1) Intentar password_verify (caso recomendado)
+			if (!empty($storedHash) && password_verify($contrasena, $storedHash)) {
+				$passwordOk = true;
+			}
+
+			// 2) Fallback: si la base tiene hash SHA2 (hex de 64 chars), comprobar y migrar
+			if (!$passwordOk) {
+				$sha256 = hash('sha256', $contrasena);
+				if (!empty($storedHash) && strcasecmp($sha256, $storedHash) === 0) {
+					// Coincide con SHA256 almacenado: migrar al hash de password_hash
+					try {
+						$newHash = password_hash($contrasena, PASSWORD_DEFAULT);
+						$updateSql = "UPDATE usuarios SET contrasena_hash = :newhash WHERE id = :id";
+						$updateStmt = $this->db->prepare($updateSql);
+						$updateStmt->execute([':newhash' => $newHash, ':id' => $row['id']]);
+						$passwordOk = true;
+					} catch (PDOException $e) {
+						error_log('Error migrating SHA2 hash for user ' . $row['id'] . ': ' . $e->getMessage());
+						// No hacemos return aquí; permitiremos que falle abajo si no se pudo verificar
+					}
+				}
+			}
+
+			if (!$passwordOk) {
 				return [
 					'success' => false,
 					'message' => 'Contraseña incorrecta',
