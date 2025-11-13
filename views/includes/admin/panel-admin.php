@@ -178,10 +178,6 @@
         <span class="relative z-10 ml-auto bg-red-500 text-xs px-2 py-1 rounded-full shadow-md">3</span>
       </button>
 
-
-
-
-
     <!-- ESPACIADOR -->
     <div class="flex-1"></div>
 
