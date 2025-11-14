@@ -1,79 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registrar Beneficiario</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Registrar Beneficiario</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+@keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.animate-float { animation: float 4s ease-in-out infinite; }
+.hover-lift { transition: all 0.3s ease; }
+.hover-lift:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+input:focus, select:focus, textarea:focus { outline: none; box-shadow: 0 0 0 3px rgba(59,130,246,0.4); border-color: #3b82f6; }
+.btn-primary { transition: all 0.3s ease; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+.card-header { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; padding: 0.75rem 1rem; color: white; border-bottom: 1px solid rgba(255,255,255,0.2); border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem; }
+.bg-beneficiario { background: linear-gradient(135deg,#f59e0b,#d97706); }
+.bg-solicitud { background: linear-gradient(135deg,#2563eb,#1e40af); }
+</style>
 </head>
+<body class="flex min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-50 font-sans">
 
-<body class="flex min-h-screen bg-gray-100 font-sans">
+<main class="flex-1 p-8">
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-  <main class="flex-1  bg-cover bg-center relative">
-
-
-      <section class="grid p-8 grid-cols-1 md:grid-cols-2 gap-8">
-        
-
-        <div class="bg-white rounded-xl border border-blue-400 shadow-lg overflow-hidden">
-          <div class="bg-yellow-600 text-white font-semibold px-4 py-2 flex items-center space-x-2">
-            <span>👤</span>
-            <span>Beneficiario</span>
-          </div>
-          <div class="p-6 space-y-4">
-            <div>
-              <label class="block text-gray-700 text-sm mb-1">DNI</label>
-              <div class="flex items-center gap-2">
-                <input type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Ingrese DNI">
-                <button class="bg-gray-700 hover:bg-gray-900 text-white px-3 py-2 rounded-lg transition">🔍</button>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-gray-700 text-sm mb-1">Programa de Estudios</label>
-              <input type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Nombre del programa">
-            </div>
-
-            <div>
-              <label class="block text-gray-700 text-sm mb-1">Ciclo</label>
-              <input type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Ciclo actual">
-            </div>
-
-            <div>
-              <label class="block text-gray-700 text-sm mb-1">Categoría</label>
-              <select class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
-                <option value="">Seleccionar</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-              </select>
-            </div>
-
-            <button class="w-full bg-yellow-600 text-white py-2 rounded-lg hover:bg-yellow-700 transition font-semibold mt-3">
-              Agregar Beneficiario
+    <!-- Beneficiario -->
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover-lift animate-float border border-blue-200">
+      <div class="card-header bg-beneficiario">
+        <i class="fas fa-user fa-lg"></i>
+        <span>Beneficiario</span>
+      </div>
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">DNI</label>
+          <div class="flex items-center gap-2">
+            <input type="text" class="w-full border rounded-lg px-3 py-2" placeholder="Ingrese DNI">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg btn-primary">
+              <i class="fas fa-search"></i>
             </button>
           </div>
         </div>
 
-        <div class="bg-white rounded-xl border border-gray-300 shadow-lg overflow-hidden">
-          <div class="bg-yellow-600 text-white font-semibold px-4 py-2 flex items-center space-x-2">
-            <span>📘</span>
-            <span>Solicitud Resolución</span>
-          </div>
-          <div class="p-6 space-y-4">
-            <div>
-              <label class="block text-gray-700 text-sm mb-1">N° Resolución</label>
-              <input type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Ingrese número de resolución">
-            </div>
-
-            <div>
-              <label class="block text-gray-700 text-sm mb-1">Descripción</label>
-              <textarea rows="4" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Detalles o comentarios"></textarea>
-            </div>
-          </div>
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">Programa de Estudios</label>
+          <input type="text" class="w-full border rounded-lg px-3 py-2" placeholder="Nombre del programa">
         </div>
-      </section>
+
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">Ciclo</label>
+          <select class="w-full border rounded-lg px-3 py-2">
+            <option value="">Seleccionar</option>
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+            <option value="IV">IV</option>
+            <option value="V">V</option>
+            <option value="VI">VI</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">Turno</label>
+          <select class="w-full border rounded-lg px-3 py-2">
+            <option value="">Seleccionar turno</option>
+            <option value="Diurno">Diurno</option>
+            <option value="Vespertino">Vespertino</option>
+          </select>
+        </div>
+
+        <button class="w-full bg-yellow-600 text-white py-2 rounded-lg hover:bg-yellow-700 transition font-semibold btn-primary">
+          Agregar Beneficiario
+        </button>
+      </div>
     </div>
-  </main>
+
+    <!-- Solicitud Resolución -->
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover-lift animate-float border border-gray-200">
+      <div class="card-header bg-solicitud">
+        <i class="fas fa-book fa-lg"></i>
+        <span>Solicitud Resolución</span>
+      </div>
+      <div class="p-6 space-y-4">
+
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">Beneficiario</label>
+          <input type="text" class="w-full border rounded-lg px-3 py-2" placeholder="Nombre completo del beneficiario">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">Carrera</label>
+          <input type="text" class="w-full border rounded-lg px-3 py-2" placeholder="Carrera del beneficiario">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">A cargo de</label>
+          <input type="text" class="w-full border rounded-lg px-3 py-2" placeholder="Nombre de la persona a cargo">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">N° Resolución</label>
+          <input type="text" class="w-full border rounded-lg px-3 py-2" placeholder="Ingrese número de resolución">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">Fecha de Resolución</label>
+          <input type="date" class="w-full border rounded-lg px-3 py-2">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">Tipo de Resolución</label>
+          <select class="w-full border rounded-lg px-3 py-2">
+            <option value="">Seleccionar tipo</option>
+            <option value="Aprobación">Aprobación</option>
+            <option value="Denegación">Denegación</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 text-sm mb-1">Descripción / Observaciones</label>
+          <textarea rows="4" class="w-full border rounded-lg px-3 py-2" placeholder="Detalles adicionales o comentarios"></textarea>
+        </div>
+
+       <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-semibold btn-primary">
+  Agregar Resolución
+</button>
+
+
+      </div>
+    </div>
+
+  </section>
+</main>
 </body>
 </html>
